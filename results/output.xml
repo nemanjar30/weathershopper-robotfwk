@@ -1,0 +1,2538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1 (Python 3.9.10 on darwin)" generated="20230304 18:11:17.493" rpa="false" schemaversion="2">
+<suite id="s1" name="Buy Creams" source="/Users/nemanja/lu/lu_world/automation/weathershopper-app/weathershopper-robotfwk/tests/buy_creams.robot">
+<test id="s1-t1" name="As a user, I should be able to add creams to cart and go through payment processing">
+<kw name="Open web browser" library="web_setup" type="SETUP">
+<doc>Opens the browser and navigates to the dashboard page</doc>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${PORTAL_URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230304 18:11:18.221" level="INFO">Opening browser 'Chrome' to base url 'http://weathershopper.pythonanywhere.com/.'.</msg>
+<status status="PASS" starttime="20230304 18:11:18.219" endtime="20230304 18:11:27.182"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230304 18:11:27.184" endtime="20230304 18:11:27.627"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:18.217" endtime="20230304 18:11:27.628"/>
+</kw>
+<kw name="Click on appropriate buy button based on current temperature" library="dashboard_keywords">
+<var>${cream_type}</var>
+<kw name="Get current temperature" library="dashboard_page">
+<var>${temperature}</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${CURRENT_TEMPERATURE}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:27.703" level="INFO">${innerHTML} = 43&lt;sup&gt;&amp;nbsp;°C&lt;/sup&gt;</msg>
+<status status="PASS" starttime="20230304 18:11:27.631" endtime="20230304 18:11:27.703"/>
+</kw>
+<kw name="Fetch From Left" library="String">
+<var>${temperature}</var>
+<arg>${innerHTML}</arg>
+<arg>&lt;sup</arg>
+<doc>Returns contents of the ``string`` before the first occurrence of ``marker``.</doc>
+<msg timestamp="20230304 18:11:27.705" level="INFO">${temperature} = 43</msg>
+<status status="PASS" starttime="20230304 18:11:27.704" endtime="20230304 18:11:27.705"/>
+</kw>
+<msg timestamp="20230304 18:11:27.705" level="INFO">${temperature} = 43</msg>
+<status status="PASS" starttime="20230304 18:11:27.629" endtime="20230304 18:11:27.705"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${int_temp}</var>
+<arg>${temperature}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20230304 18:11:27.706" level="INFO">${int_temp} = 43</msg>
+<status status="PASS" starttime="20230304 18:11:27.705" endtime="20230304 18:11:27.706"/>
+</kw>
+<if>
+<branch type="IF" condition="${int_temp} &lt; 19">
+<kw name="Click buy button" library="dashboard_page">
+<arg>moisturizers</arg>
+<status status="NOT RUN" starttime="20230304 18:11:27.707" endtime="20230304 18:11:27.707"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${type}</var>
+<arg>moisturizers</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:27.707" endtime="20230304 18:11:27.707"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:27.707" endtime="20230304 18:11:27.707"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:27.706" endtime="20230304 18:11:27.707"/>
+</if>
+<if>
+<branch type="IF" condition="${int_temp} &gt; 34">
+<kw name="Click buy button" library="dashboard_page">
+<arg>sunscreens</arg>
+<kw name="Format String" library="String">
+<var>${buy_creme_button}</var>
+<arg>${BUY_BTN}</arg>
+<arg>${cream_type}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:27.710" level="INFO">${buy_creme_button} = //button[@class='btn btn-primary'][contains(.,'Buy sunscreens')]</msg>
+<status status="PASS" starttime="20230304 18:11:27.709" endtime="20230304 18:11:27.710"/>
+</kw>
+<kw name="Click on element" library="web_common">
+<arg>${buy_creme_button}</arg>
+<doc>Left clicks on an element</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230304 18:11:27.711" endtime="20230304 18:11:27.733"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:27.734" endtime="20230304 18:11:27.752"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:27.753" endtime="20230304 18:11:27.780"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Click element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:27.782" level="INFO">Clicking element '//button[@class='btn btn-primary'][contains(.,'Buy sunscreens')]'.</msg>
+<status status="PASS" starttime="20230304 18:11:27.781" endtime="20230304 18:11:28.691"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:27.781" endtime="20230304 18:11:28.691"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:27.710" endtime="20230304 18:11:28.692"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:27.708" endtime="20230304 18:11:28.692"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${type}</var>
+<arg>sunscreens</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230304 18:11:28.692" level="INFO">${type} = sunscreens</msg>
+<status status="PASS" starttime="20230304 18:11:28.692" endtime="20230304 18:11:28.692"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:27.708" endtime="20230304 18:11:28.692"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:27.708" endtime="20230304 18:11:28.692"/>
+</if>
+<msg timestamp="20230304 18:11:28.693" level="INFO">${cream_type} = sunscreens</msg>
+<status status="PASS" starttime="20230304 18:11:27.629" endtime="20230304 18:11:28.693"/>
+</kw>
+<kw name="Add products, verify and go to cart" library="cream_catalog_keywords">
+<arg>${cream_type}</arg>
+<if>
+<branch type="IF" condition="&quot;${cream_type}&quot; == &quot;moisturizers&quot;">
+<kw name="Find cream with specific ingredient for lowest price" library="cream_catalog_keywords">
+<var>${lowest_price_1}</var>
+<arg>aloe</arg>
+<status status="NOT RUN" starttime="20230304 18:11:28.694" endtime="20230304 18:11:28.694"/>
+</kw>
+<kw name="Find cream with specific ingredient for lowest price" library="cream_catalog_keywords">
+<var>${lowest_price_2}</var>
+<arg>almond</arg>
+<status status="NOT RUN" starttime="20230304 18:11:28.694" endtime="20230304 18:11:28.694"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${PRICE_1}</arg>
+<arg>${lowest_price_1}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.694" endtime="20230304 18:11:28.694"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${PRICE_2}</arg>
+<arg>${lowest_price_2}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.695" endtime="20230304 18:11:28.695"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.694" endtime="20230304 18:11:28.695"/>
+</branch>
+<branch type="ELSE">
+<kw name="Find cream with specific ingredient for lowest price" library="cream_catalog_keywords">
+<var>${lowest_price_1}</var>
+<arg>spf-50</arg>
+<kw name="Get list of creams" library="cream_catalog_page">
+<var>@{creams}</var>
+<kw name="Get text from all matching elements" library="web_common">
+<var>${creams}</var>
+<arg>${ALL_CREAM_NAMES}</arg>
+<doc>An expected condition to get text from all matching elements
+Returns a list containing all text strings found for matching elements</doc>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:28.696" endtime="20230304 18:11:28.742"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Wait until element is visible</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:28.743" endtime="20230304 18:11:28.760"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.742" endtime="20230304 18:11:28.760"/>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>@{elements}</var>
+<arg>${locator}</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.767" level="INFO">@{elements} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="12167bb8-bcc3-4796-9bb7-f4fa16abd9e7")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (ses...</msg>
+<status status="PASS" starttime="20230304 18:11:28.761" endtime="20230304 18:11:28.767"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:28.768" level="INFO">@{list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.768" endtime="20230304 18:11:28.768"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elements}</value>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="12167bb8-bcc3-4796-9bb7-f4fa16abd9e7")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.783" level="INFO">${element_text} = Robert Herbals Sunblock SPF-40</msg>
+<status status="PASS" starttime="20230304 18:11:28.768" endtime="20230304 18:11:28.783"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.784" level="INFO">${stripped_text} = Robert Herbals Sunblock SPF-40</msg>
+<status status="PASS" starttime="20230304 18:11:28.783" endtime="20230304 18:11:28.784"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.784" endtime="20230304 18:11:28.784"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.768" endtime="20230304 18:11:28.784"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="5ffd6840-bf8d-45cc-8473-f873141eadc3")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.796" level="INFO">${element_text} = Vassily Brilliant SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.784" endtime="20230304 18:11:28.796"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.797" level="INFO">${stripped_text} = Vassily Brilliant SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.796" endtime="20230304 18:11:28.797"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.797" endtime="20230304 18:11:28.797"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.784" endtime="20230304 18:11:28.797"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="30a76ec4-3f61-4a27-ba8c-cc33e8f1d126")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.809" level="INFO">${element_text} = Anatoly Ultra Sunblock SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.798" endtime="20230304 18:11:28.809"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.810" level="INFO">${stripped_text} = Anatoly Ultra Sunblock SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.810" endtime="20230304 18:11:28.810"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.810" endtime="20230304 18:11:28.810"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.797" endtime="20230304 18:11:28.810"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="b87f8f36-884b-4e3d-9388-513310fbb3f8")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.821" level="INFO">${element_text} = Vishy La Shield Sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.811" endtime="20230304 18:11:28.821"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.822" level="INFO">${stripped_text} = Vishy La Shield Sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.821" endtime="20230304 18:11:28.822"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.822" endtime="20230304 18:11:28.822"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.810" endtime="20230304 18:11:28.822"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="035b3f8d-e54d-43d5-99b4-73238829a2bd")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.833" level="INFO">${element_text} = Magnus Resistant Sunscreen SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.822" endtime="20230304 18:11:28.833"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.833" level="INFO">${stripped_text} = Magnus Resistant Sunscreen SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.833" endtime="20230304 18:11:28.833"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.834" endtime="20230304 18:11:28.834"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.822" endtime="20230304 18:11:28.834"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="8c590102-b92c-42da-95f4-2b951c5fe7b1")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.845" level="INFO">${element_text} = Akiba Amazing SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.834" endtime="20230304 18:11:28.845"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.846" level="INFO">${stripped_text} = Akiba Amazing SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.845" endtime="20230304 18:11:28.846"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.846" endtime="20230304 18:11:28.846"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.834" endtime="20230304 18:11:28.846"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:28.768" endtime="20230304 18:11:28.846"/>
+</for>
+<msg timestamp="20230304 18:11:28.846" level="INFO">${creams} = ['Robert Herbals Sunblock SPF-40', 'Vassily Brilliant SPF-30', 'Anatoly Ultra Sunblock SPF-50', 'Vishy La Shield Sunscreen spf-30', 'Magnus Resistant Sunscreen SPF-30', 'Akiba Amazing SPF-50']</msg>
+<status status="PASS" starttime="20230304 18:11:28.696" endtime="20230304 18:11:28.846"/>
+</kw>
+<msg timestamp="20230304 18:11:28.847" level="INFO">@{creams} = [ Robert Herbals Sunblock SPF-40 | Vassily Brilliant SPF-30 | Anatoly Ultra Sunblock SPF-50 | Vishy La Shield Sunscreen spf-30 | Magnus Resistant Sunscreen SPF-30 | Akiba Amazing SPF-50 ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.695" endtime="20230304 18:11:28.847"/>
+</kw>
+<kw name="Convert elements in list to lower case" library="web_common">
+<var>@{creams}</var>
+<arg>${creams}</arg>
+<doc>Returns a list containing all text strings in lower case</doc>
+<kw name="Create List" library="BuiltIn">
+<var>@{list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:28.847" level="INFO">@{list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.847" endtime="20230304 18:11:28.847"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elements}</value>
+<iter>
+<var name="${element}">Robert Herbals Sunblock SPF-40</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.848" level="INFO">${lower_case} = robert herbals sunblock spf-40</msg>
+<status status="PASS" starttime="20230304 18:11:28.848" endtime="20230304 18:11:28.848"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.848" endtime="20230304 18:11:28.848"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.848" endtime="20230304 18:11:28.848"/>
+</iter>
+<iter>
+<var name="${element}">Vassily Brilliant SPF-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.849" level="INFO">${lower_case} = vassily brilliant spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.849" endtime="20230304 18:11:28.849"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.849" endtime="20230304 18:11:28.849"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.848" endtime="20230304 18:11:28.849"/>
+</iter>
+<iter>
+<var name="${element}">Anatoly Ultra Sunblock SPF-50</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.850" level="INFO">${lower_case} = anatoly ultra sunblock spf-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.849" endtime="20230304 18:11:28.850"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.850" endtime="20230304 18:11:28.850"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.849" endtime="20230304 18:11:28.850"/>
+</iter>
+<iter>
+<var name="${element}">Vishy La Shield Sunscreen spf-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.850" level="INFO">${lower_case} = vishy la shield sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.850" endtime="20230304 18:11:28.850"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.851" endtime="20230304 18:11:28.854"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.850" endtime="20230304 18:11:28.854"/>
+</iter>
+<iter>
+<var name="${element}">Magnus Resistant Sunscreen SPF-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.855" level="INFO">${lower_case} = magnus resistant sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.854" endtime="20230304 18:11:28.855"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.855" endtime="20230304 18:11:28.855"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.854" endtime="20230304 18:11:28.855"/>
+</iter>
+<iter>
+<var name="${element}">Akiba Amazing SPF-50</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.855" level="INFO">${lower_case} = akiba amazing spf-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.855" endtime="20230304 18:11:28.855"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.856" endtime="20230304 18:11:28.856"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.855" endtime="20230304 18:11:28.856"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:28.847" endtime="20230304 18:11:28.856"/>
+</for>
+<msg timestamp="20230304 18:11:28.856" level="INFO">@{creams} = [ robert herbals sunblock spf-40 | vassily brilliant spf-30 | anatoly ultra sunblock spf-50 | vishy la shield sunscreen spf-30 | magnus resistant sunscreen spf-30 | akiba amazing spf-50 ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.847" endtime="20230304 18:11:28.856"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{price_list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:28.857" level="INFO">@{price_list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.856" endtime="20230304 18:11:28.857"/>
+</kw>
+<for flavor="IN ENUMERATE">
+<var>${index}</var>
+<var>${cream}</var>
+<value>@{creams}</value>
+<iter>
+<var name="${index}">0</var>
+<var name="${cream}">robert herbals sunblock spf-40</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.858" level="INFO">${index} = 1</msg>
+<status status="PASS" starttime="20230304 18:11:28.858" endtime="20230304 18:11:28.858"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.858" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:28.858" endtime="20230304 18:11:28.859"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:28.859" endtime="20230304 18:11:28.859"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.859" endtime="20230304 18:11:28.859"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.859" endtime="20230304 18:11:28.859"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.859" endtime="20230304 18:11:28.859"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:28.857" endtime="20230304 18:11:28.859"/>
+</iter>
+<iter>
+<var name="${index}">1</var>
+<var name="${cream}">vassily brilliant spf-30</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.860" level="INFO">${index} = 2</msg>
+<status status="PASS" starttime="20230304 18:11:28.859" endtime="20230304 18:11:28.860"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.860" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:28.860" endtime="20230304 18:11:28.860"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:28.860" endtime="20230304 18:11:28.860"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.861" endtime="20230304 18:11:28.861"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.860" endtime="20230304 18:11:28.861"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.860" endtime="20230304 18:11:28.861"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:28.859" endtime="20230304 18:11:28.861"/>
+</iter>
+<iter>
+<var name="${index}">2</var>
+<var name="${cream}">anatoly ultra sunblock spf-50</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.861" level="INFO">${index} = 3</msg>
+<status status="PASS" starttime="20230304 18:11:28.861" endtime="20230304 18:11:28.861"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.862" level="INFO">${contains} = True</msg>
+<status status="PASS" starttime="20230304 18:11:28.861" endtime="20230304 18:11:28.862"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<kw name="Get cream price" library="cream_catalog_page">
+<var>${string1}</var>
+<arg>${index}</arg>
+<kw name="Format String" library="String">
+<var>${cream_price}</var>
+<arg>${CREAM_PRICE}</arg>
+<arg>${index}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:28.863" level="INFO">${cream_price} = (//div[@class='text-center col-4'])[3]//p[2]</msg>
+<status status="PASS" starttime="20230304 18:11:28.863" endtime="20230304 18:11:28.863"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${cream_price}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.880" level="INFO">${innerHTML} = Price: Rs. 289</msg>
+<status status="PASS" starttime="20230304 18:11:28.863" endtime="20230304 18:11:28.880"/>
+</kw>
+<msg timestamp="20230304 18:11:28.880" level="INFO">${string1} = Price: Rs. 289</msg>
+<status status="PASS" starttime="20230304 18:11:28.862" endtime="20230304 18:11:28.880"/>
+</kw>
+<if>
+<branch type="IF" condition="'Rs.' in '${string1}'">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Rs.</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<msg timestamp="20230304 18:11:28.881" level="INFO">${string2} =  289</msg>
+<status status="PASS" starttime="20230304 18:11:28.880" endtime="20230304 18:11:28.881"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20230304 18:11:28.881" level="INFO">${price} = 289</msg>
+<status status="PASS" starttime="20230304 18:11:28.881" endtime="20230304 18:11:28.881"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.880" endtime="20230304 18:11:28.881"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Price:</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.881" endtime="20230304 18:11:28.881"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.881" endtime="20230304 18:11:28.881"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.881" endtime="20230304 18:11:28.881"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.880" endtime="20230304 18:11:28.881"/>
+</if>
+<msg timestamp="20230304 18:11:28.882" level="INFO">${price} = 289</msg>
+<status status="PASS" starttime="20230304 18:11:28.862" endtime="20230304 18:11:28.882"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.882" endtime="20230304 18:11:28.882"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.862" endtime="20230304 18:11:28.882"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.862" endtime="20230304 18:11:28.882"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:28.861" endtime="20230304 18:11:28.882"/>
+</iter>
+<iter>
+<var name="${index}">3</var>
+<var name="${cream}">vishy la shield sunscreen spf-30</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.882" level="INFO">${index} = 4</msg>
+<status status="PASS" starttime="20230304 18:11:28.882" endtime="20230304 18:11:28.882"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.883" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:28.883" endtime="20230304 18:11:28.883"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:28.883" endtime="20230304 18:11:28.883"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.883" endtime="20230304 18:11:28.883"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.883" endtime="20230304 18:11:28.883"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.883" endtime="20230304 18:11:28.883"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:28.882" endtime="20230304 18:11:28.883"/>
+</iter>
+<iter>
+<var name="${index}">4</var>
+<var name="${cream}">magnus resistant sunscreen spf-30</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.884" level="INFO">${index} = 5</msg>
+<status status="PASS" starttime="20230304 18:11:28.884" endtime="20230304 18:11:28.884"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.884" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:28.884" endtime="20230304 18:11:28.884"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:28.885" endtime="20230304 18:11:28.885"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.885" endtime="20230304 18:11:28.885"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.885" endtime="20230304 18:11:28.885"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.884" endtime="20230304 18:11:28.885"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:28.884" endtime="20230304 18:11:28.885"/>
+</iter>
+<iter>
+<var name="${index}">5</var>
+<var name="${cream}">akiba amazing spf-50</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.885" level="INFO">${index} = 6</msg>
+<status status="PASS" starttime="20230304 18:11:28.885" endtime="20230304 18:11:28.885"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.886" level="INFO">${contains} = True</msg>
+<status status="PASS" starttime="20230304 18:11:28.886" endtime="20230304 18:11:28.886"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<kw name="Get cream price" library="cream_catalog_page">
+<var>${string1}</var>
+<arg>${index}</arg>
+<kw name="Format String" library="String">
+<var>${cream_price}</var>
+<arg>${CREAM_PRICE}</arg>
+<arg>${index}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:28.887" level="INFO">${cream_price} = (//div[@class='text-center col-4'])[6]//p[2]</msg>
+<status status="PASS" starttime="20230304 18:11:28.887" endtime="20230304 18:11:28.887"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${cream_price}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.903" level="INFO">${innerHTML} = Price: 222</msg>
+<status status="PASS" starttime="20230304 18:11:28.887" endtime="20230304 18:11:28.903"/>
+</kw>
+<msg timestamp="20230304 18:11:28.903" level="INFO">${string1} = Price: 222</msg>
+<status status="PASS" starttime="20230304 18:11:28.886" endtime="20230304 18:11:28.904"/>
+</kw>
+<if>
+<branch type="IF" condition="'Rs.' in '${string1}'">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Rs.</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.904" endtime="20230304 18:11:28.904"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:28.904" endtime="20230304 18:11:28.904"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:28.904" endtime="20230304 18:11:28.904"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Price:</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<msg timestamp="20230304 18:11:28.904" level="INFO">${string2} =  222</msg>
+<status status="PASS" starttime="20230304 18:11:28.904" endtime="20230304 18:11:28.904"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20230304 18:11:28.905" level="INFO">${price} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:28.905" endtime="20230304 18:11:28.905"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.904" endtime="20230304 18:11:28.905"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.904" endtime="20230304 18:11:28.905"/>
+</if>
+<msg timestamp="20230304 18:11:28.905" level="INFO">${price} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:28.886" endtime="20230304 18:11:28.905"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.905" endtime="20230304 18:11:28.905"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.886" endtime="20230304 18:11:28.905"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.886" endtime="20230304 18:11:28.905"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:28.885" endtime="20230304 18:11:28.905"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:28.857" endtime="20230304 18:11:28.906"/>
+</for>
+<kw name="Evaluate" library="BuiltIn">
+<var>${lowest_price}</var>
+<arg>min($price_list)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:28.909" level="INFO">${lowest_price} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:28.906" endtime="20230304 18:11:28.909"/>
+</kw>
+<msg timestamp="20230304 18:11:28.909" level="INFO">${lowest_price_1} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:28.695" endtime="20230304 18:11:28.909"/>
+</kw>
+<kw name="Find cream with specific ingredient for lowest price" library="cream_catalog_keywords">
+<var>${lowest_price_2}</var>
+<arg>spf-30</arg>
+<kw name="Get list of creams" library="cream_catalog_page">
+<var>@{creams}</var>
+<kw name="Get text from all matching elements" library="web_common">
+<var>${creams}</var>
+<arg>${ALL_CREAM_NAMES}</arg>
+<doc>An expected condition to get text from all matching elements
+Returns a list containing all text strings found for matching elements</doc>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:28.910" endtime="20230304 18:11:28.929"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Wait until element is visible</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:28.930" endtime="20230304 18:11:28.945"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.930" endtime="20230304 18:11:28.946"/>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>@{elements}</var>
+<arg>${locator}</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.951" level="INFO">@{elements} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="12167bb8-bcc3-4796-9bb7-f4fa16abd9e7")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (ses...</msg>
+<status status="PASS" starttime="20230304 18:11:28.946" endtime="20230304 18:11:28.952"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:28.952" level="INFO">@{list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.952" endtime="20230304 18:11:28.952"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elements}</value>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="12167bb8-bcc3-4796-9bb7-f4fa16abd9e7")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.958" level="INFO">${element_text} = Robert Herbals Sunblock SPF-40</msg>
+<status status="PASS" starttime="20230304 18:11:28.952" endtime="20230304 18:11:28.958"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.958" level="INFO">${stripped_text} = Robert Herbals Sunblock SPF-40</msg>
+<status status="PASS" starttime="20230304 18:11:28.958" endtime="20230304 18:11:28.958"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.958" endtime="20230304 18:11:28.958"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.952" endtime="20230304 18:11:28.958"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="5ffd6840-bf8d-45cc-8473-f873141eadc3")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.965" level="INFO">${element_text} = Vassily Brilliant SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.959" endtime="20230304 18:11:28.966"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.966" level="INFO">${stripped_text} = Vassily Brilliant SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.966" endtime="20230304 18:11:28.966"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.967" endtime="20230304 18:11:28.967"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.959" endtime="20230304 18:11:28.967"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="30a76ec4-3f61-4a27-ba8c-cc33e8f1d126")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.974" level="INFO">${element_text} = Anatoly Ultra Sunblock SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.967" endtime="20230304 18:11:28.974"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.974" level="INFO">${stripped_text} = Anatoly Ultra Sunblock SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.974" endtime="20230304 18:11:28.974"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.975" endtime="20230304 18:11:28.975"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.967" endtime="20230304 18:11:28.975"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="b87f8f36-884b-4e3d-9388-513310fbb3f8")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.982" level="INFO">${element_text} = Vishy La Shield Sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.975" endtime="20230304 18:11:28.982"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.982" level="INFO">${stripped_text} = Vishy La Shield Sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.982" endtime="20230304 18:11:28.982"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.982" endtime="20230304 18:11:28.982"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.975" endtime="20230304 18:11:28.983"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="035b3f8d-e54d-43d5-99b4-73238829a2bd")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.988" level="INFO">${element_text} = Magnus Resistant Sunscreen SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.983" endtime="20230304 18:11:28.988"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.989" level="INFO">${stripped_text} = Magnus Resistant Sunscreen SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.988" endtime="20230304 18:11:28.989"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.989" endtime="20230304 18:11:28.989"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.983" endtime="20230304 18:11:28.989"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="8c590102-b92c-42da-95f4-2b951c5fe7b1")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:28.995" level="INFO">${element_text} = Akiba Amazing SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.989" endtime="20230304 18:11:28.995"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:28.995" level="INFO">${stripped_text} = Akiba Amazing SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.995" endtime="20230304 18:11:28.995"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.995" endtime="20230304 18:11:28.996"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.989" endtime="20230304 18:11:28.996"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:28.952" endtime="20230304 18:11:28.996"/>
+</for>
+<msg timestamp="20230304 18:11:28.996" level="INFO">${creams} = ['Robert Herbals Sunblock SPF-40', 'Vassily Brilliant SPF-30', 'Anatoly Ultra Sunblock SPF-50', 'Vishy La Shield Sunscreen spf-30', 'Magnus Resistant Sunscreen SPF-30', 'Akiba Amazing SPF-50']</msg>
+<status status="PASS" starttime="20230304 18:11:28.910" endtime="20230304 18:11:28.996"/>
+</kw>
+<msg timestamp="20230304 18:11:28.996" level="INFO">@{creams} = [ Robert Herbals Sunblock SPF-40 | Vassily Brilliant SPF-30 | Anatoly Ultra Sunblock SPF-50 | Vishy La Shield Sunscreen spf-30 | Magnus Resistant Sunscreen SPF-30 | Akiba Amazing SPF-50 ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.910" endtime="20230304 18:11:28.996"/>
+</kw>
+<kw name="Convert elements in list to lower case" library="web_common">
+<var>@{creams}</var>
+<arg>${creams}</arg>
+<doc>Returns a list containing all text strings in lower case</doc>
+<kw name="Create List" library="BuiltIn">
+<var>@{list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:28.997" level="INFO">@{list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.996" endtime="20230304 18:11:28.997"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elements}</value>
+<iter>
+<var name="${element}">Robert Herbals Sunblock SPF-40</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.997" level="INFO">${lower_case} = robert herbals sunblock spf-40</msg>
+<status status="PASS" starttime="20230304 18:11:28.997" endtime="20230304 18:11:28.997"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.997" endtime="20230304 18:11:28.998"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.997" endtime="20230304 18:11:28.998"/>
+</iter>
+<iter>
+<var name="${element}">Vassily Brilliant SPF-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.998" level="INFO">${lower_case} = vassily brilliant spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.998" endtime="20230304 18:11:28.998"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.998" endtime="20230304 18:11:28.998"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.998" endtime="20230304 18:11:28.998"/>
+</iter>
+<iter>
+<var name="${element}">Anatoly Ultra Sunblock SPF-50</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.999" level="INFO">${lower_case} = anatoly ultra sunblock spf-50</msg>
+<status status="PASS" starttime="20230304 18:11:28.999" endtime="20230304 18:11:28.999"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:28.999" endtime="20230304 18:11:28.999"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.998" endtime="20230304 18:11:28.999"/>
+</iter>
+<iter>
+<var name="${element}">Vishy La Shield Sunscreen spf-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:28.999" level="INFO">${lower_case} = vishy la shield sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:28.999" endtime="20230304 18:11:28.999"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:29.000" endtime="20230304 18:11:29.000"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.999" endtime="20230304 18:11:29.000"/>
+</iter>
+<iter>
+<var name="${element}">Magnus Resistant Sunscreen SPF-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:29.000" level="INFO">${lower_case} = magnus resistant sunscreen spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:29.000" endtime="20230304 18:11:29.000"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:29.000" endtime="20230304 18:11:29.001"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.000" endtime="20230304 18:11:29.001"/>
+</iter>
+<iter>
+<var name="${element}">Akiba Amazing SPF-50</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:29.001" level="INFO">${lower_case} = akiba amazing spf-50</msg>
+<status status="PASS" starttime="20230304 18:11:29.001" endtime="20230304 18:11:29.001"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:29.001" endtime="20230304 18:11:29.001"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.001" endtime="20230304 18:11:29.001"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:28.997" endtime="20230304 18:11:29.001"/>
+</for>
+<msg timestamp="20230304 18:11:29.001" level="INFO">@{creams} = [ robert herbals sunblock spf-40 | vassily brilliant spf-30 | anatoly ultra sunblock spf-50 | vishy la shield sunscreen spf-30 | magnus resistant sunscreen spf-30 | akiba amazing spf-50 ]</msg>
+<status status="PASS" starttime="20230304 18:11:28.996" endtime="20230304 18:11:29.002"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{price_list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:29.002" level="INFO">@{price_list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:29.002" endtime="20230304 18:11:29.002"/>
+</kw>
+<for flavor="IN ENUMERATE">
+<var>${index}</var>
+<var>${cream}</var>
+<value>@{creams}</value>
+<iter>
+<var name="${index}">0</var>
+<var name="${cream}">robert herbals sunblock spf-40</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.002" level="INFO">${index} = 1</msg>
+<status status="PASS" starttime="20230304 18:11:29.002" endtime="20230304 18:11:29.002"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.003" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:29.002" endtime="20230304 18:11:29.003"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:29.003" endtime="20230304 18:11:29.003"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.003" endtime="20230304 18:11:29.003"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:29.003" endtime="20230304 18:11:29.003"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.003" endtime="20230304 18:11:29.003"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:29.002" endtime="20230304 18:11:29.003"/>
+</iter>
+<iter>
+<var name="${index}">1</var>
+<var name="${cream}">vassily brilliant spf-30</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.004" level="INFO">${index} = 2</msg>
+<status status="PASS" starttime="20230304 18:11:29.004" endtime="20230304 18:11:29.004"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.004" level="INFO">${contains} = True</msg>
+<status status="PASS" starttime="20230304 18:11:29.004" endtime="20230304 18:11:29.004"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<kw name="Get cream price" library="cream_catalog_page">
+<var>${string1}</var>
+<arg>${index}</arg>
+<kw name="Format String" library="String">
+<var>${cream_price}</var>
+<arg>${CREAM_PRICE}</arg>
+<arg>${index}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:29.006" level="INFO">${cream_price} = (//div[@class='text-center col-4'])[2]//p[2]</msg>
+<status status="PASS" starttime="20230304 18:11:29.005" endtime="20230304 18:11:29.006"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${cream_price}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.020" level="INFO">${innerHTML} = Price: Rs. 116</msg>
+<status status="PASS" starttime="20230304 18:11:29.006" endtime="20230304 18:11:29.020"/>
+</kw>
+<msg timestamp="20230304 18:11:29.021" level="INFO">${string1} = Price: Rs. 116</msg>
+<status status="PASS" starttime="20230304 18:11:29.005" endtime="20230304 18:11:29.021"/>
+</kw>
+<if>
+<branch type="IF" condition="'Rs.' in '${string1}'">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Rs.</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<msg timestamp="20230304 18:11:29.021" level="INFO">${string2} =  116</msg>
+<status status="PASS" starttime="20230304 18:11:29.021" endtime="20230304 18:11:29.021"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20230304 18:11:29.022" level="INFO">${price} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:29.021" endtime="20230304 18:11:29.022"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.021" endtime="20230304 18:11:29.022"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Price:</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.022" endtime="20230304 18:11:29.022"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.022" endtime="20230304 18:11:29.022"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:29.022" endtime="20230304 18:11:29.022"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.021" endtime="20230304 18:11:29.022"/>
+</if>
+<msg timestamp="20230304 18:11:29.022" level="INFO">${price} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:29.005" endtime="20230304 18:11:29.022"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:29.023" endtime="20230304 18:11:29.023"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.005" endtime="20230304 18:11:29.023"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.004" endtime="20230304 18:11:29.023"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:29.003" endtime="20230304 18:11:29.023"/>
+</iter>
+<iter>
+<var name="${index}">2</var>
+<var name="${cream}">anatoly ultra sunblock spf-50</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.023" level="INFO">${index} = 3</msg>
+<status status="PASS" starttime="20230304 18:11:29.023" endtime="20230304 18:11:29.023"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.024" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:29.023" endtime="20230304 18:11:29.024"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:29.024" endtime="20230304 18:11:29.024"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.024" endtime="20230304 18:11:29.024"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:29.024" endtime="20230304 18:11:29.024"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.024" endtime="20230304 18:11:29.024"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:29.023" endtime="20230304 18:11:29.024"/>
+</iter>
+<iter>
+<var name="${index}">3</var>
+<var name="${cream}">vishy la shield sunscreen spf-30</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.025" level="INFO">${index} = 4</msg>
+<status status="PASS" starttime="20230304 18:11:29.025" endtime="20230304 18:11:29.025"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.026" level="INFO">${contains} = True</msg>
+<status status="PASS" starttime="20230304 18:11:29.025" endtime="20230304 18:11:29.026"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<kw name="Get cream price" library="cream_catalog_page">
+<var>${string1}</var>
+<arg>${index}</arg>
+<kw name="Format String" library="String">
+<var>${cream_price}</var>
+<arg>${CREAM_PRICE}</arg>
+<arg>${index}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:29.027" level="INFO">${cream_price} = (//div[@class='text-center col-4'])[4]//p[2]</msg>
+<status status="PASS" starttime="20230304 18:11:29.027" endtime="20230304 18:11:29.027"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${cream_price}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.042" level="INFO">${innerHTML} = Price: 195</msg>
+<status status="PASS" starttime="20230304 18:11:29.027" endtime="20230304 18:11:29.042"/>
+</kw>
+<msg timestamp="20230304 18:11:29.042" level="INFO">${string1} = Price: 195</msg>
+<status status="PASS" starttime="20230304 18:11:29.026" endtime="20230304 18:11:29.042"/>
+</kw>
+<if>
+<branch type="IF" condition="'Rs.' in '${string1}'">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Rs.</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.043"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.043"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.043"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Price:</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<msg timestamp="20230304 18:11:29.043" level="INFO">${string2} =  195</msg>
+<status status="PASS" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.043"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20230304 18:11:29.044" level="INFO">${price} = 195</msg>
+<status status="PASS" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.044"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.044"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.043" endtime="20230304 18:11:29.044"/>
+</if>
+<msg timestamp="20230304 18:11:29.044" level="INFO">${price} = 195</msg>
+<status status="PASS" starttime="20230304 18:11:29.026" endtime="20230304 18:11:29.044"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:29.044" endtime="20230304 18:11:29.044"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.026" endtime="20230304 18:11:29.044"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.026" endtime="20230304 18:11:29.044"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:29.025" endtime="20230304 18:11:29.044"/>
+</iter>
+<iter>
+<var name="${index}">4</var>
+<var name="${cream}">magnus resistant sunscreen spf-30</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.045" level="INFO">${index} = 5</msg>
+<status status="PASS" starttime="20230304 18:11:29.045" endtime="20230304 18:11:29.045"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.045" level="INFO">${contains} = True</msg>
+<status status="PASS" starttime="20230304 18:11:29.045" endtime="20230304 18:11:29.045"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<kw name="Get cream price" library="cream_catalog_page">
+<var>${string1}</var>
+<arg>${index}</arg>
+<kw name="Format String" library="String">
+<var>${cream_price}</var>
+<arg>${CREAM_PRICE}</arg>
+<arg>${index}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:29.046" level="INFO">${cream_price} = (//div[@class='text-center col-4'])[5]//p[2]</msg>
+<status status="PASS" starttime="20230304 18:11:29.046" endtime="20230304 18:11:29.046"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${cream_price}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.061" level="INFO">${innerHTML} = Price: 140</msg>
+<status status="PASS" starttime="20230304 18:11:29.047" endtime="20230304 18:11:29.061"/>
+</kw>
+<msg timestamp="20230304 18:11:29.061" level="INFO">${string1} = Price: 140</msg>
+<status status="PASS" starttime="20230304 18:11:29.046" endtime="20230304 18:11:29.061"/>
+</kw>
+<if>
+<branch type="IF" condition="'Rs.' in '${string1}'">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Rs.</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.062"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.062"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.062"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fetch From Right" library="String">
+<var>${string2}</var>
+<arg>${string1}</arg>
+<arg>Price:</arg>
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<msg timestamp="20230304 18:11:29.062" level="INFO">${string2} =  140</msg>
+<status status="PASS" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.062"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${price}</var>
+<arg>${string2}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20230304 18:11:29.063" level="INFO">${price} = 140</msg>
+<status status="PASS" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.063"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.063"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.062" endtime="20230304 18:11:29.063"/>
+</if>
+<msg timestamp="20230304 18:11:29.063" level="INFO">${price} = 140</msg>
+<status status="PASS" starttime="20230304 18:11:29.046" endtime="20230304 18:11:29.063"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:29.063" endtime="20230304 18:11:29.063"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.045" endtime="20230304 18:11:29.063"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.045" endtime="20230304 18:11:29.063"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:29.044" endtime="20230304 18:11:29.063"/>
+</iter>
+<iter>
+<var name="${index}">5</var>
+<var name="${cream}">akiba amazing spf-50</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${index}</var>
+<arg>${index} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.064" level="INFO">${index} = 6</msg>
+<status status="PASS" starttime="20230304 18:11:29.064" endtime="20230304 18:11:29.064"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contains}</var>
+<arg>"${ingredient}" in "${cream}"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.064" level="INFO">${contains} = False</msg>
+<status status="PASS" starttime="20230304 18:11:29.064" endtime="20230304 18:11:29.064"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains} == ${True}">
+<kw name="Fetch cream price" library="cream_catalog_keywords">
+<var>${price}</var>
+<arg>${index}</arg>
+<status status="NOT RUN" starttime="20230304 18:11:29.065" endtime="20230304 18:11:29.065"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${price_list}</arg>
+<arg>${price}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:29.065" endtime="20230304 18:11:29.065"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:29.064" endtime="20230304 18:11:29.065"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:29.064" endtime="20230304 18:11:29.065"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:29.063" endtime="20230304 18:11:29.065"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:29.002" endtime="20230304 18:11:29.065"/>
+</for>
+<kw name="Evaluate" library="BuiltIn">
+<var>${lowest_price}</var>
+<arg>min($price_list)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:29.065" level="INFO">${lowest_price} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:29.065" endtime="20230304 18:11:29.065"/>
+</kw>
+<msg timestamp="20230304 18:11:29.065" level="INFO">${lowest_price_2} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:28.909" endtime="20230304 18:11:29.066"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${PRICE_1}</arg>
+<arg>${lowest_price_1}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230304 18:11:29.067" level="INFO">${PRICE_1} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:29.066" endtime="20230304 18:11:29.067"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${PRICE_2}</arg>
+<arg>${lowest_price_2}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230304 18:11:29.069" level="INFO">${PRICE_2} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:29.068" endtime="20230304 18:11:29.069"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.695" endtime="20230304 18:11:29.069"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:28.694" endtime="20230304 18:11:29.069"/>
+</if>
+<kw name="Click add to cart button" library="cream_catalog_page">
+<arg>${lowest_price_1}</arg>
+<kw name="Format String" library="String">
+<var>${add_button}</var>
+<arg>${ADD_TO_CART_BTN}</arg>
+<arg>${price}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:29.070" level="INFO">${add_button} = //button[@onclick[contains(.,222)]]</msg>
+<status status="PASS" starttime="20230304 18:11:29.070" endtime="20230304 18:11:29.070"/>
+</kw>
+<kw name="Click on element" library="web_common">
+<arg>${add_button}</arg>
+<doc>Left clicks on an element</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230304 18:11:29.070" endtime="20230304 18:11:29.078"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:29.078" endtime="20230304 18:11:29.090"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:29.091" endtime="20230304 18:11:29.107"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Click element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.108" level="INFO">Clicking element '//button[@onclick[contains(.,222)]]'.</msg>
+<status status="PASS" starttime="20230304 18:11:29.108" endtime="20230304 18:11:29.145"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.107" endtime="20230304 18:11:29.145"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.070" endtime="20230304 18:11:29.145"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.069" endtime="20230304 18:11:29.145"/>
+</kw>
+<kw name="Verify number of items in cart" library="cream_catalog_page">
+<arg>1</arg>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${GO_TO_CART_BTN}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.163" level="INFO">${innerHTML} = 1 item(s)</msg>
+<status status="PASS" starttime="20230304 18:11:29.146" endtime="20230304 18:11:29.163"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${innerHTML}</arg>
+<arg>${number} item(s)</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20230304 18:11:29.163" endtime="20230304 18:11:29.164"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.145" endtime="20230304 18:11:29.164"/>
+</kw>
+<kw name="Click add to cart button" library="cream_catalog_page">
+<arg>${lowest_price_2}</arg>
+<kw name="Format String" library="String">
+<var>${add_button}</var>
+<arg>${ADD_TO_CART_BTN}</arg>
+<arg>${price}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20230304 18:11:29.164" level="INFO">${add_button} = //button[@onclick[contains(.,116)]]</msg>
+<status status="PASS" starttime="20230304 18:11:29.164" endtime="20230304 18:11:29.164"/>
+</kw>
+<kw name="Click on element" library="web_common">
+<arg>${add_button}</arg>
+<doc>Left clicks on an element</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230304 18:11:29.165" endtime="20230304 18:11:29.174"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:29.174" endtime="20230304 18:11:29.187"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:29.187" endtime="20230304 18:11:29.206"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Click element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.207" level="INFO">Clicking element '//button[@onclick[contains(.,116)]]'.</msg>
+<status status="PASS" starttime="20230304 18:11:29.206" endtime="20230304 18:11:29.238"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.206" endtime="20230304 18:11:29.238"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.165" endtime="20230304 18:11:29.238"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.164" endtime="20230304 18:11:29.238"/>
+</kw>
+<kw name="Verify number of items in cart" library="cream_catalog_page">
+<arg>2</arg>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${innerHTML}</var>
+<arg>${GO_TO_CART_BTN}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.250" level="INFO">${innerHTML} = 2 item(s)</msg>
+<status status="PASS" starttime="20230304 18:11:29.239" endtime="20230304 18:11:29.251"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${innerHTML}</arg>
+<arg>${number} item(s)</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20230304 18:11:29.251" endtime="20230304 18:11:29.252"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.238" endtime="20230304 18:11:29.252"/>
+</kw>
+<kw name="Click go to cart button" library="cream_catalog_page">
+<kw name="Click on element" library="web_common">
+<arg>${GO_TO_CART_BTN}</arg>
+<doc>Left clicks on an element</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230304 18:11:29.253" endtime="20230304 18:11:29.258"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:29.258" endtime="20230304 18:11:29.272"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:29.272" endtime="20230304 18:11:29.292"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Click element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:29.293" level="INFO">Clicking element 'css:span#cart'.</msg>
+<status status="PASS" starttime="20230304 18:11:29.292" endtime="20230304 18:11:32.105"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.292" endtime="20230304 18:11:32.106"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.252" endtime="20230304 18:11:32.106"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:29.252" endtime="20230304 18:11:32.106"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:28.693" endtime="20230304 18:11:32.106"/>
+</kw>
+<kw name="Verify products in cart and go to payment" library="checkout_keywords">
+<arg>${cream_type}</arg>
+<kw name="Get list of products in cart" library="checkout_page">
+<var>@{products}</var>
+<kw name="Get text from all matching elements" library="web_common">
+<var>${creams}</var>
+<arg>${ALL_PRODUCTS}</arg>
+<doc>An expected condition to get text from all matching elements
+Returns a list containing all text strings found for matching elements</doc>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:32.108" endtime="20230304 18:11:32.181"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Wait until element is visible</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:32.182" endtime="20230304 18:11:32.196"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.181" endtime="20230304 18:11:32.196"/>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>@{elements}</var>
+<arg>${locator}</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.206" level="INFO">@{elements} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="d08b1689-065c-4337-b5a6-fdb4a17c28a0")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (ses...</msg>
+<status status="PASS" starttime="20230304 18:11:32.197" endtime="20230304 18:11:32.207"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:32.207" level="INFO">@{list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:32.207" endtime="20230304 18:11:32.207"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elements}</value>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="d08b1689-065c-4337-b5a6-fdb4a17c28a0")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.217" level="INFO">${element_text} = Akiba Amazing SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:32.207" endtime="20230304 18:11:32.218"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:32.218" level="INFO">${stripped_text} = Akiba Amazing SPF-50</msg>
+<status status="PASS" starttime="20230304 18:11:32.218" endtime="20230304 18:11:32.218"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.219" endtime="20230304 18:11:32.219"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.207" endtime="20230304 18:11:32.219"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="a14d5fe7-41bd-440e-9b8c-31f8838df40d")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.230" level="INFO">${element_text} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:32.219" endtime="20230304 18:11:32.230"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:32.230" level="INFO">${stripped_text} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:32.230" endtime="20230304 18:11:32.230"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.230" endtime="20230304 18:11:32.230"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.219" endtime="20230304 18:11:32.231"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="47cd6a38-2405-4fa6-a8bf-1110c59f6e1c")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.241" level="INFO">${element_text} = Vassily Brilliant SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:32.231" endtime="20230304 18:11:32.241"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:32.242" level="INFO">${stripped_text} = Vassily Brilliant SPF-30</msg>
+<status status="PASS" starttime="20230304 18:11:32.241" endtime="20230304 18:11:32.242"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.242" endtime="20230304 18:11:32.242"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.231" endtime="20230304 18:11:32.242"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="a5a80645c44edea259d38fd3a30c5694", element="ce2b7379-3c6d-4b9a-b43f-bf2cbb153bc3")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${element}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.253" level="INFO">${element_text} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:32.243" endtime="20230304 18:11:32.253"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:32.254" level="INFO">${stripped_text} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:32.253" endtime="20230304 18:11:32.254"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${stripped_text}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.254" endtime="20230304 18:11:32.254"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.242" endtime="20230304 18:11:32.254"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:32.207" endtime="20230304 18:11:32.254"/>
+</for>
+<msg timestamp="20230304 18:11:32.254" level="INFO">${creams} = ['Akiba Amazing SPF-50', '222', 'Vassily Brilliant SPF-30', '116']</msg>
+<status status="PASS" starttime="20230304 18:11:32.108" endtime="20230304 18:11:32.254"/>
+</kw>
+<msg timestamp="20230304 18:11:32.255" level="INFO">@{products} = [ Akiba Amazing SPF-50 | 222 | Vassily Brilliant SPF-30 | 116 ]</msg>
+<status status="PASS" starttime="20230304 18:11:32.107" endtime="20230304 18:11:32.255"/>
+</kw>
+<kw name="Convert elements in list to lower case" library="web_common">
+<var>@{creams}</var>
+<arg>${products}</arg>
+<doc>Returns a list containing all text strings in lower case</doc>
+<kw name="Create List" library="BuiltIn">
+<var>@{list}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230304 18:11:32.255" level="INFO">@{list} = [ ]</msg>
+<status status="PASS" starttime="20230304 18:11:32.255" endtime="20230304 18:11:32.255"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elements}</value>
+<iter>
+<var name="${element}">Akiba Amazing SPF-50</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:32.256" level="INFO">${lower_case} = akiba amazing spf-50</msg>
+<status status="PASS" starttime="20230304 18:11:32.256" endtime="20230304 18:11:32.256"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.256" endtime="20230304 18:11:32.256"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.255" endtime="20230304 18:11:32.256"/>
+</iter>
+<iter>
+<var name="${element}">222</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:32.256" level="INFO">${lower_case} = 222</msg>
+<status status="PASS" starttime="20230304 18:11:32.256" endtime="20230304 18:11:32.257"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.257" endtime="20230304 18:11:32.257"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.256" endtime="20230304 18:11:32.257"/>
+</iter>
+<iter>
+<var name="${element}">Vassily Brilliant SPF-30</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:32.257" level="INFO">${lower_case} = vassily brilliant spf-30</msg>
+<status status="PASS" starttime="20230304 18:11:32.257" endtime="20230304 18:11:32.257"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.257" endtime="20230304 18:11:32.258"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.257" endtime="20230304 18:11:32.258"/>
+</iter>
+<iter>
+<var name="${element}">116</var>
+<kw name="Convert To Lower Case" library="String">
+<var>${lower_case}</var>
+<arg>${element}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20230304 18:11:32.258" level="INFO">${lower_case} = 116</msg>
+<status status="PASS" starttime="20230304 18:11:32.258" endtime="20230304 18:11:32.258"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${list}</arg>
+<arg>${lower_case}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230304 18:11:32.258" endtime="20230304 18:11:32.258"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.258" endtime="20230304 18:11:32.258"/>
+</iter>
+<status status="PASS" starttime="20230304 18:11:32.255" endtime="20230304 18:11:32.258"/>
+</for>
+<msg timestamp="20230304 18:11:32.258" level="INFO">@{creams} = [ akiba amazing spf-50 | 222 | vassily brilliant spf-30 | 116 ]</msg>
+<status status="PASS" starttime="20230304 18:11:32.255" endtime="20230304 18:11:32.259"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${cream_type}&quot; == &quot;moisturizers&quot;">
+<kw name="Should Contain" library="BuiltIn">
+<arg>${creams}[0]</arg>
+<arg>aloe</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.259"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${creams}[1]</arg>
+<arg>${PRICE_1}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.259"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${creams}[2]</arg>
+<arg>almond</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.259"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${creams}[3]</arg>
+<arg>${PRICE_2}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.259"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.259"/>
+</branch>
+<branch type="ELSE">
+<kw name="Should Contain" library="BuiltIn">
+<arg>${creams}[0]</arg>
+<arg>spf-50</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.260"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${creams}[1]</arg>
+<arg>${PRICE_1}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20230304 18:11:32.260" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230304 18:11:32.260" endtime="20230304 18:11:32.260"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${creams}[2]</arg>
+<arg>spf-30</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230304 18:11:32.260" endtime="20230304 18:11:32.260"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${creams}[3]</arg>
+<arg>${PRICE_2}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20230304 18:11:32.261" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230304 18:11:32.261" endtime="20230304 18:11:32.261"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.261"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:32.259" endtime="20230304 18:11:32.261"/>
+</if>
+<kw name="Verify overall price" library="checkout_keywords">
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${PRICE_1}+${PRICE_2}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:32.262" level="INFO">${sum} = 338</msg>
+<status status="PASS" starttime="20230304 18:11:32.261" endtime="20230304 18:11:32.262"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${expected_price}</var>
+<arg>Total: Rupees ${sum}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230304 18:11:32.262" level="INFO">${expected_price} = Total: Rupees 338</msg>
+<status status="PASS" starttime="20230304 18:11:32.262" endtime="20230304 18:11:32.262"/>
+</kw>
+<kw name="Get overall price" library="checkout_page">
+<var>${actual_price}</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${price}</var>
+<arg>${PRICE_TOTAL}</arg>
+<arg>innerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.277" level="INFO">${price} = Total: Rupees 338</msg>
+<status status="PASS" starttime="20230304 18:11:32.262" endtime="20230304 18:11:32.277"/>
+</kw>
+<msg timestamp="20230304 18:11:32.278" level="INFO">${actual_price} = Total: Rupees 338</msg>
+<status status="PASS" starttime="20230304 18:11:32.262" endtime="20230304 18:11:32.278"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${actual_price}</arg>
+<arg>${expected_price}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20230304 18:11:32.278" endtime="20230304 18:11:32.278"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.261" endtime="20230304 18:11:32.278"/>
+</kw>
+<kw name="Click on pay with card button" library="checkout_page">
+<kw name="Click on element" library="web_common">
+<arg>${PAY_WITH_CARD_BTN}</arg>
+<doc>Left clicks on an element</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230304 18:11:32.279" endtime="20230304 18:11:32.287"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:32.287" endtime="20230304 18:11:32.299"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:32.300" endtime="20230304 18:11:32.318"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Click element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:32.319" level="INFO">Clicking element '//button[@class='stripe-button-el']'.</msg>
+<status status="PASS" starttime="20230304 18:11:32.318" endtime="20230304 18:11:32.363"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.318" endtime="20230304 18:11:32.363"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.279" endtime="20230304 18:11:32.364"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.278" endtime="20230304 18:11:32.364"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.106" endtime="20230304 18:11:32.364"/>
+</kw>
+<kw name="Populate card details and click pay" library="checkout_keywords">
+<kw name="Get fake email" library="data_creation">
+<var>${email}</var>
+<doc>Create random number and email, then catenate them so it creates a unique email then return
+the value in the keyword</doc>
+<kw name="Domain Name" library="FakerLibrary">
+<var>${domain_name}</var>
+<doc>Produce an Internet domain name with the specified number of
+subdomain levels.</doc>
+<msg timestamp="20230304 18:11:32.368" level="INFO">${domain_name} = evans.com</msg>
+<status status="PASS" starttime="20230304 18:11:32.365" endtime="20230304 18:11:32.368"/>
+</kw>
+<kw name="Get random number" library="data_creation">
+<var>${numbers}</var>
+<arg>5</arg>
+<doc>Gets a random number of legth specified by argument
+then returns the value from the keyword</doc>
+<kw name="Random Number" library="FakerLibrary">
+<var>${number}</var>
+<arg>digits=${number_of_digits}</arg>
+<arg>fix_len=True</arg>
+<doc>Generate a random integer according to the following rules:</doc>
+<msg timestamp="20230304 18:11:32.374" level="INFO">${number} = 88898</msg>
+<status status="PASS" starttime="20230304 18:11:32.369" endtime="20230304 18:11:32.374"/>
+</kw>
+<msg timestamp="20230304 18:11:32.375" level="INFO">${numbers} = 88898</msg>
+<status status="PASS" starttime="20230304 18:11:32.368" endtime="20230304 18:11:32.375"/>
+</kw>
+<kw name="Safe Email" library="FakerLibrary">
+<var>${email}</var>
+<msg timestamp="20230304 18:11:32.376" level="INFO">${email} = mark24@example.net</msg>
+<status status="PASS" starttime="20230304 18:11:32.375" endtime="20230304 18:11:32.376"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${email_domain}</var>
+<arg>${email}</arg>
+<arg>\\@\\S+</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230304 18:11:32.377" level="INFO">${email_domain} = ['@example.net']</msg>
+<status status="PASS" starttime="20230304 18:11:32.376" endtime="20230304 18:11:32.377"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${test_email}</var>
+<arg>${email}</arg>
+<arg>${email_domain}[0]</arg>
+<arg>_${numbers}@${domain_name}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230304 18:11:32.381" level="INFO">${test_email} = mark24_88898@evans.com</msg>
+<status status="PASS" starttime="20230304 18:11:32.378" endtime="20230304 18:11:32.381"/>
+</kw>
+<msg timestamp="20230304 18:11:32.381" level="INFO">${email} = mark24_88898@evans.com</msg>
+<status status="PASS" starttime="20230304 18:11:32.365" endtime="20230304 18:11:32.382"/>
+</kw>
+<kw name="Get fake card number" library="data_creation">
+<var>${card_number}</var>
+<doc>Get random card number from a list of valid card numbers</doc>
+<kw name="Evaluate" library="BuiltIn">
+<var>${credit_card}</var>
+<arg>random.choice($CREDIT_CARD_NUMBERS)</arg>
+<arg>random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230304 18:11:32.383" level="INFO">${credit_card} = 4000056655665556</msg>
+<status status="PASS" starttime="20230304 18:11:32.382" endtime="20230304 18:11:32.383"/>
+</kw>
+<msg timestamp="20230304 18:11:32.383" level="INFO">${card_number} = 4000056655665556</msg>
+<status status="PASS" starttime="20230304 18:11:32.382" endtime="20230304 18:11:32.383"/>
+</kw>
+<kw name="Get fake expiration date" library="data_creation">
+<var>${exp_date}</var>
+<doc>Create random card number and a user name then
+catenate them then return the value in the keyword</doc>
+<kw name="Credit Card Expire" library="FakerLibrary">
+<var>${exp_date}</var>
+<doc>Generate a credit card expiry date.</doc>
+<msg timestamp="20230304 18:11:32.385" level="INFO">${exp_date} = 10/25</msg>
+<status status="PASS" starttime="20230304 18:11:32.383" endtime="20230304 18:11:32.385"/>
+</kw>
+<msg timestamp="20230304 18:11:32.385" level="INFO">${exp_date} = 10/25</msg>
+<status status="PASS" starttime="20230304 18:11:32.383" endtime="20230304 18:11:32.385"/>
+</kw>
+<kw name="Get fake cvc number" library="data_creation">
+<var>${cvc}</var>
+<doc>Create random cvc number</doc>
+<kw name="Get random number" library="data_creation">
+<var>${cvc}</var>
+<arg>3</arg>
+<doc>Gets a random number of legth specified by argument
+then returns the value from the keyword</doc>
+<kw name="Random Number" library="FakerLibrary">
+<var>${number}</var>
+<arg>digits=${number_of_digits}</arg>
+<arg>fix_len=True</arg>
+<doc>Generate a random integer according to the following rules:</doc>
+<msg timestamp="20230304 18:11:32.391" level="INFO">${number} = 827</msg>
+<status status="PASS" starttime="20230304 18:11:32.389" endtime="20230304 18:11:32.391"/>
+</kw>
+<msg timestamp="20230304 18:11:32.391" level="INFO">${cvc} = 827</msg>
+<status status="PASS" starttime="20230304 18:11:32.389" endtime="20230304 18:11:32.391"/>
+</kw>
+<msg timestamp="20230304 18:11:32.392" level="INFO">${cvc} = 827</msg>
+<status status="PASS" starttime="20230304 18:11:32.386" endtime="20230304 18:11:32.392"/>
+</kw>
+<kw name="Get fake zip code" library="data_creation">
+<var>${zip_code}</var>
+<doc>Create random zip code</doc>
+<kw name="Get random number" library="data_creation">
+<var>${zip_code}</var>
+<arg>5</arg>
+<doc>Gets a random number of legth specified by argument
+then returns the value from the keyword</doc>
+<kw name="Random Number" library="FakerLibrary">
+<var>${number}</var>
+<arg>digits=${number_of_digits}</arg>
+<arg>fix_len=True</arg>
+<doc>Generate a random integer according to the following rules:</doc>
+<msg timestamp="20230304 18:11:32.394" level="INFO">${number} = 18121</msg>
+<status status="PASS" starttime="20230304 18:11:32.393" endtime="20230304 18:11:32.394"/>
+</kw>
+<msg timestamp="20230304 18:11:32.395" level="INFO">${zip_code} = 18121</msg>
+<status status="PASS" starttime="20230304 18:11:32.392" endtime="20230304 18:11:32.395"/>
+</kw>
+<msg timestamp="20230304 18:11:32.397" level="INFO">${zip_code} = 18121</msg>
+<status status="PASS" starttime="20230304 18:11:32.392" endtime="20230304 18:11:32.397"/>
+</kw>
+<kw name="Switch to stripe frame" library="checkout_page">
+<kw name="Switch to frame" library="web_common">
+<arg>${STRIPE_IFRAME}</arg>
+<doc>An expected condition for switching to an IFrame specified by a locator</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:32.402" endtime="20230304 18:11:32.445"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:32.446" endtime="20230304 18:11:32.478"/>
+</kw>
+<kw name="Select Frame" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Sets frame identified by ``locator`` as the current frame.</doc>
+<msg timestamp="20230304 18:11:32.479" level="INFO">Selecting frame 'css:iframe[name='stripe_checkout_app']'.</msg>
+<status status="PASS" starttime="20230304 18:11:32.478" endtime="20230304 18:11:32.509"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.401" endtime="20230304 18:11:32.509"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.401" endtime="20230304 18:11:32.509"/>
+</kw>
+<kw name="Enter email" library="checkout_page">
+<arg>${email}</arg>
+<kw name="Enter text" library="web_common">
+<arg>${EMAIL_TEXT_FIELD}</arg>
+<arg>${email}</arg>
+<doc>Enters text on an element text field</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:32.511" endtime="20230304 18:11:33.013"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:33.014" endtime="20230304 18:11:33.039"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>input text</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<arg>${text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:33.040" level="INFO">Typing text 'mark24_88898@evans.com' into text field 'css:input#email'.</msg>
+<status status="PASS" starttime="20230304 18:11:33.040" endtime="20230304 18:11:33.216"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:33.039" endtime="20230304 18:11:33.216"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.510" endtime="20230304 18:11:33.217"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.510" endtime="20230304 18:11:33.217"/>
+</kw>
+<kw name="Enter card number" library="checkout_page">
+<arg>${card_number}</arg>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${CARD_NUMBER_TEXT_FIELD}</arg>
+<arg>${card_number}</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230304 18:11:33.219" level="INFO">Sending key(s) ('4000056655665556',) to css:input#card_number element.</msg>
+<msg timestamp="20230304 18:11:33.606" level="INFO">Sending keys 4000056655665556</msg>
+<status status="PASS" starttime="20230304 18:11:33.218" endtime="20230304 18:11:34.012"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:33.217" endtime="20230304 18:11:34.012"/>
+</kw>
+<kw name="Enter expiration date" library="checkout_page">
+<arg>${exp_date}</arg>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${EXP_DATE_TEXT_FIELD}</arg>
+<arg>${exp_date}</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230304 18:11:34.013" level="INFO">Sending key(s) ('10/25',) to css:input#cc-exp element.</msg>
+<msg timestamp="20230304 18:11:34.312" level="INFO">Sending keys 10/25</msg>
+<status status="PASS" starttime="20230304 18:11:34.013" endtime="20230304 18:11:34.339"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:34.012" endtime="20230304 18:11:34.339"/>
+</kw>
+<kw name="Enter cvc number" library="checkout_page">
+<arg>${cvc}</arg>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${CVC_TEXT_FIELD}</arg>
+<arg>${cvc}</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230304 18:11:34.340" level="INFO">Sending key(s) ('827',) to css:input#cc-csc element.</msg>
+<msg timestamp="20230304 18:11:34.648" level="INFO">Sending keys 827</msg>
+<status status="PASS" starttime="20230304 18:11:34.340" endtime="20230304 18:11:34.668"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:34.339" endtime="20230304 18:11:34.668"/>
+</kw>
+<kw name="Enter zip code" library="checkout_page">
+<arg>${zip_code}</arg>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${ZIP_CODE_TEXT_FIELD}</arg>
+<arg>${zip_code}</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230304 18:11:34.670" level="INFO">Sending key(s) ('18121',) to css:input#billing-zip element.</msg>
+<msg timestamp="20230304 18:11:34.960" level="INFO">Sending keys 18121</msg>
+<status status="PASS" starttime="20230304 18:11:34.669" endtime="20230304 18:11:34.987"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:34.668" endtime="20230304 18:11:34.987"/>
+</kw>
+<kw name="Click pay button" library="checkout_page">
+<kw name="Click on element" library="web_common">
+<arg>${PAY_BTN}</arg>
+<doc>Left clicks on an element</doc>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230304 18:11:34.989" endtime="20230304 18:11:35.002"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:35.003" endtime="20230304 18:11:35.026"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20230304 18:11:35.026" endtime="20230304 18:11:35.050"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Click element</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:35.052" level="INFO">Clicking element 'css:button#submitButton'.</msg>
+<status status="PASS" starttime="20230304 18:11:35.051" endtime="20230304 18:11:35.183"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:35.050" endtime="20230304 18:11:35.183"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:34.988" endtime="20230304 18:11:35.184"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:34.987" endtime="20230304 18:11:35.184"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:32.364" endtime="20230304 18:11:35.184"/>
+</kw>
+<kw name="Verify confirmation page" library="confirmation_keywords">
+<kw name="Get title text from confirmation page" library="confirmation_page">
+<var>${text}</var>
+<kw name="Get element text" library="web_common">
+<var>${text}</var>
+<arg>${PAGE_TXT}</arg>
+<doc>An expected condition to get the text of an locator
+Returns a String containing the elements text</doc>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Wait until element is visible</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:35.189" endtime="20230304 18:11:38.685"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:35.188" endtime="20230304 18:11:38.685"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${locator}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:38.702" level="INFO">${element_text} = PAYMENT SUCCESS</msg>
+<status status="PASS" starttime="20230304 18:11:38.685" endtime="20230304 18:11:38.702"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:38.702" level="INFO">${stripped_text} = PAYMENT SUCCESS</msg>
+<status status="PASS" starttime="20230304 18:11:38.702" endtime="20230304 18:11:38.702"/>
+</kw>
+<msg timestamp="20230304 18:11:38.703" level="INFO">${text} = PAYMENT SUCCESS</msg>
+<status status="PASS" starttime="20230304 18:11:35.186" endtime="20230304 18:11:38.703"/>
+</kw>
+<msg timestamp="20230304 18:11:38.703" level="INFO">${text} = PAYMENT SUCCESS</msg>
+<status status="PASS" starttime="20230304 18:11:35.186" endtime="20230304 18:11:38.703"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${text}&quot; == &quot;PAYMENT SUCCESS&quot;">
+<kw name="Verify success text on page" library="confirmation_page">
+<kw name="Get element text" library="web_common">
+<var>${actual_value}</var>
+<arg>${BODY_TXT}</arg>
+<doc>An expected condition to get the text of an locator
+Returns a String containing the elements text</doc>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>${INTERACTION_TIMEOUT}</arg>
+<arg>${SCRIPT_TIMEOUT}</arg>
+<arg>Wait until element is visible</arg>
+<arg>${locator}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${locator}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230304 18:11:38.704" endtime="20230304 18:11:38.720"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:38.704" endtime="20230304 18:11:38.720"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${element_text}</var>
+<arg>${locator}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230304 18:11:38.735" level="INFO">${element_text} = Your payment was successful. You should receive a follow-up call from our sales team.</msg>
+<status status="PASS" starttime="20230304 18:11:38.720" endtime="20230304 18:11:38.735"/>
+</kw>
+<kw name="Strip String" library="String">
+<var>${stripped_text}</var>
+<arg>${SPACE}${element_text}${SPACE}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<msg timestamp="20230304 18:11:38.735" level="INFO">${stripped_text} = Your payment was successful. You should receive a follow-up call from our sales team.</msg>
+<status status="PASS" starttime="20230304 18:11:38.735" endtime="20230304 18:11:38.735"/>
+</kw>
+<msg timestamp="20230304 18:11:38.735" level="INFO">${actual_value} = Your payment was successful. You should receive a follow-up call from our sales team.</msg>
+<status status="PASS" starttime="20230304 18:11:38.703" endtime="20230304 18:11:38.735"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${actual_value}</arg>
+<arg>${SUCCESS_BODY}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20230304 18:11:38.736" endtime="20230304 18:11:38.736"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:38.703" endtime="20230304 18:11:38.736"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Payment successful</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230304 18:11:38.736" level="INFO">Payment successful</msg>
+<status status="PASS" starttime="20230304 18:11:38.736" endtime="20230304 18:11:38.736"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:38.703" endtime="20230304 18:11:38.736"/>
+</branch>
+<branch type="ELSE">
+<kw name="Verify failure text on page" library="confirmation_page">
+<status status="NOT RUN" starttime="20230304 18:11:38.736" endtime="20230304 18:11:38.736"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Payment failed</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230304 18:11:38.737" endtime="20230304 18:11:38.737"/>
+</kw>
+<status status="NOT RUN" starttime="20230304 18:11:38.736" endtime="20230304 18:11:38.737"/>
+</branch>
+<status status="PASS" starttime="20230304 18:11:38.703" endtime="20230304 18:11:38.737"/>
+</if>
+<status status="PASS" starttime="20230304 18:11:35.185" endtime="20230304 18:11:38.737"/>
+</kw>
+<kw name="Tear down web test" library="web_setup" type="TEARDOWN">
+<doc>Tears down the overall test suite, takes a screenshot on test failure
+and closes all open browser windows</doc>
+<kw name="Run Keyword If Test Failed" library="BuiltIn">
+<arg>Run keyword and continue on failure</arg>
+<arg>SeleniumLibrary.Capture page ScreenShot</arg>
+<doc>Runs the given keyword with the given arguments, if the test failed.</doc>
+<status status="PASS" starttime="20230304 18:11:38.738" endtime="20230304 18:11:38.738"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230304 18:11:38.738" endtime="20230304 18:11:38.929"/>
+</kw>
+<status status="PASS" starttime="20230304 18:11:38.737" endtime="20230304 18:11:38.929"/>
+</kw>
+<doc>User chooses cream type based on current temperature, puts 2 least expensive creams in cart and
+proceeds with payment</doc>
+<tag>TestType:Regression</tag>
+<status status="PASS" starttime="20230304 18:11:18.216" endtime="20230304 18:11:38.929"/>
+</test>
+<doc>This file contains the UI test for shopping cream based on weather</doc>
+<status status="PASS" starttime="20230304 18:11:17.497" endtime="20230304 18:11:38.932"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">TestType:Regression</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Buy Creams">Buy Creams</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
