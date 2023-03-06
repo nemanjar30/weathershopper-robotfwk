@@ -1,0 +1,6 @@
+FROM python:3.9-slim-buster
+WORKDIR /app
+COPY . /app/
+COPY chromedriver  /usr/bin/
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["robot", "-d", "results", "--output", "output.xml", "--report", "report.html", "--log", "log.html", "-T", "--variable", "BROWSER:headlesschrome", "/app/tests/buy_creams.robot"]
